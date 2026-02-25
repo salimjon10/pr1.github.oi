@@ -2,12 +2,11 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Unit Economics </title>
+<title>Unit Economics</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
 
+<style>
 :root{
   --bg:#0b0f14;
   --panel:rgba(255,255,255,0.08);
@@ -16,13 +15,13 @@
   --text:#fff;
 }
 
-*{box-sizing:border-box;font-family:Inter;margin:0;padding:0}
+*{box-sizing:border-box;margin:0;padding:0;font-family:sans-serif}
 
 body{
   background:linear-gradient(135deg,#0b0f14,#071a1f);
   color:var(--text);
 }
-
+#model button{display:block;margin:20px auto;}
 /* LOGIN */
 #login{
   height:100vh;
@@ -30,190 +29,121 @@ body{
   justify-content:center;
   align-items:center;
 }
+
 .card{
   background:var(--panel);
-  backdrop-filter:blur(20px);
-  padding:50px;
-  border-radius:25px;
+  padding:40px;
+  border-radius:20px;
   text-align:center;
-  box-shadow:0 0 60px rgba(0,255,166,0.3);
+  animation:fade 0.6s;
 }
+
+@keyframes fade{
+  from{opacity:0; transform:translateY(20px)}
+  to{opacity:1}
+}
+
 input{
   width:100%;
-  padding:16px;
-  margin:12px 0;
-  border-radius:12px;
+  padding:14px;
+  margin:10px 0;
+  border-radius:10px;
   border:none;
   background:#111;
   color:#fff;
   text-align:center;
 }
+
 button{
-  padding:16px 24px;
+  padding:14px 20px;
   border:none;
-  border-radius:16px;
+  border-radius:12px;
   background:linear-gradient(45deg,var(--accent),var(--accent2));
-  color:#001;
-  font-weight:bold;
   cursor:pointer;
-  transition:0.3s;
+  font-weight:bold;
 }
-button:hover{transform:scale(1.05);}
 
 /* APP */
-.app{display:none;height:100vh;display:flex}
+.app{
+  display:none;
+  height:100vh;
+}
+
+/* SIDEBAR */
 .sidebar{
-  width:220px;
+  width:240px;
   background:#060a0f;
   padding:20px;
   display:flex;
   flex-direction:column;
-  align-items:center;
-}
-.profile{
-  text-align:center;
-  margin-bottom:30px;
-}
-.avatar{
-  width:80px;
-  height:80px;
-  border-radius:50%;
-  background:linear-gradient(45deg,var(--accent),var(--accent2));
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:32px;
-  font-weight:bold;
-  color:#002;
-  margin-bottom:12px;
-}
-.profile-info{
-  display:flex;
-  justify-content:center;
-  gap:15px;
-  font-size:14px;
-  color:#fff;
 }
 
-/* NAVIGATION BUTTONS AS BLOCKS */
+/* PROFILE */
+.profile{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:30px;
+}
+
+.avatar{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:linear-gradient(45deg,#00ffa6,#00d4ff);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  color:#000;
+}
+
+.profile-info{
+  font-size:13px;
+  line-height:1.2;
+}
+
+/* NAV */
 .nav{
   display:flex;
   flex-direction:column;
-  gap:12px;
-  width:100%;
-}
-.nav button{
-  width:100%;
-  padding:12px;
-  border:none;
-  border-radius:15px;
-  background:linear-gradient(45deg,rgba(0,255,166,0.3),rgba(0,212,255,0.3));
-  color:#aaa;
-  font-weight:500;
-  cursor:pointer;
-  transition: all 0.3s ease;
-  text-align:center;
-}
-.nav button:hover{
-  transform:scale(1.05);
-  background:linear-gradient(45deg,var(--accent),var(--accent2));
-  color:#001;
-}
-.nav button.active{
-  background:linear-gradient(45deg,var(--accent),var(--accent2));
-  color:#001;
-  font-weight:bold;
+  gap:10px;
 }
 
-/* MAIN */
 .main{
   flex:1;
-  padding:40px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
+  padding:30px;
   overflow:auto;
 }
 
-/* SECTIONS */
+/* PAGES */
+.page{display:none}
+.page.active{display:block}
+
 .section{
   background:var(--panel);
-  backdrop-filter:blur(20px);
-  padding:40px;
-  border-radius:25px;
-  margin-bottom:30px;
-  width:70%;
-  min-width:400px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  box-shadow:0 0 50px rgba(0,255,166,0.15);
-  transition:0.3s;
+  padding:30px;
+  border-radius:20px;
+  margin-bottom:20px;
 }
-.section:hover{transform:scale(1.02)}
 
 .metrics{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:30px;
-  justify-items:center;
-  width:100%;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
 }
 
 .metric{
   background:linear-gradient(135deg,#00ffa6,#00d4ff);
-  padding:25px;
-  border-radius:20px;
+  padding:20px;
+  border-radius:15px;
   text-align:center;
-  width:100%;
-  max-width:250px;
   color:#000;
-  box-shadow:0 0 25px rgba(0,0,0,0.2);
-  transition:0.3s;
 }
 .metric span{
-  font-size:32px;
-  display:block;
-  margin-top:10px;
+  font-size:28px;
   font-weight:bold;
-}
-.metric small{
   display:block;
-  margin-top:6px;
-  font-size:12px;
-  color:#111;
-  text-align:center;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  margin-top:20px;
-}
-td,th{
-  border:1px solid rgba(255,255,255,0.1);
-  padding:12px;
-  text-align:center;
-}
-th{color:var(--accent)}
-
-input{
-  width:90%;
-  padding:16px;
-  margin:10px 0;
-  border-radius:12px;
-  border:none;
-  background:#111;
-  color:#fff;
-  text-align:center;
-}
-
-canvas{
-  background:#03070b;
-  border-radius:20px;
-  margin-top:20px;
-  width:100% !important;
-  height:400px !important;
 }
 </style>
 </head>
@@ -223,7 +153,7 @@ canvas{
 <!-- LOGIN -->
 <div id="login">
   <div class="card">
-    <h2> Юнит экономика </h2>
+    <h2>Юнит экономика</h2>
     <input id="name" placeholder="Имя">
     <input id="email" placeholder="Email">
     <button onclick="login()">Войти</button>
@@ -234,61 +164,53 @@ canvas{
 <div class="app" id="app">
 
   <div class="sidebar">
+
+    <!-- PROFILE -->
     <div class="profile">
       <div class="avatar" id="avatar">U</div>
       <div class="profile-info">
         <div id="profileName">User</div>
-        <div id="profileEmail">demo@mail.com</div>
+        <div id="profileEmail">email@mail.com</div>
       </div>
     </div>
+
     <div class="nav">
-      <button onclick="showPage('dash',this)" class="active">Dashboard</button>
-      <button onclick="showPage('model',this)">Model</button>
-      <button onclick="showPage('analytics',this)">Analytics</button>
+      <button onclick="showPage('dash')">Dashboard</button>
+      <button onclick="showPage('model')">Model</button>
+      <button onclick="showPage('analytics')">Analytics</button>
     </div>
   </div>
 
   <div class="main">
 
     <!-- DASHBOARD -->
-    <div id="dash">
+    <div id="dash" class="page active">
       <div class="section">
         <h3>Метрики</h3>
         <div class="metrics">
-          <div class="metric">CAC <span id="cac">0 ₽</span><small>Стоимость привлечения клиента</small></div>
-          <div class="metric">LTV <span id="ltv">0 ₽</span><small>Доход с клиента за весь период</small></div>
-          <div class="metric">ROI <span id="roi">0 ₽</span><small>Прибыль (Доход − Маркетинг)</small></div>
-          <div class="metric">Paying <span id="paying">0 чел</span><small>Платящие клиенты</small></div>
+          <div class="metric">CAC <span id="cac">0 ₽</span></div>
+          <div class="metric">LTV <span id="ltv">0 ₽</span></div>
+          <div class="metric">ROI <span id="roi">0 ₽</span></div>
+          <div class="metric">Paying <span id="paying">0</span></div>
         </div>
-      </div>
-
-      <div class="section">
-        <h3>Обозначения SaaS</h3>
-        <table>
-          <tr><th>Метрика</th><th>Что означает</th></tr>
-          <tr><td>CAC</td><td>Стоимость привлечения одного клиента</td></tr>
-          <tr><td>LTV</td><td>Доход от клиента за весь период</td></tr>
-          <tr><td>ROI</td><td>Прибыль = Доход − Маркетинг</td></tr>
-          <tr><td>Paying</td><td>Количество платящих пользователей</td></tr>
-        </table>
       </div>
     </div>
 
     <!-- MODEL -->
-    <div id="model" style="display:none">
+    <div id="model" class="page">
       <div class="section">
         <h3>Модель</h3>
-        <input id="marketing" type="number" placeholder="Маркетинг (₽)">
-        <input id="users" type="number" placeholder="Всего пользователей">
-        <input id="payingUsers" type="number" placeholder="Платящие (чел)">
-        <input id="revenue" type="number" placeholder="Доход (₽)">
-        <input id="lifetime" type="number" placeholder="Lifetime (мес)">
+        <input id="marketing" type="number" placeholder="Маркетинг">
+        <input id="users" type="number" placeholder="Пользователи">
+        <input id="payingUsers" type="number" placeholder="Платящие">
+        <input id="revenue" type="number" placeholder="Доход">
+        <input id="lifetime" type="number" placeholder="Lifetime">
         <button onclick="calculate()">Рассчитать</button>
       </div>
     </div>
 
     <!-- ANALYTICS -->
-    <div id="analytics" style="display:none">
+    <div id="analytics" class="page">
       <div class="section">
         <h3>Прогноз прибыли</h3>
         <canvas id="chart"></canvas>
@@ -296,7 +218,6 @@ canvas{
     </div>
 
   </div>
-
 </div>
 
 <script>
@@ -304,99 +225,66 @@ let chart;
 
 // LOGIN
 function login(){
-  const loginEl = document.getElementById('login');
-  const appEl = document.getElementById('app');
   const name = document.getElementById('name').value || 'User';
-  const email = document.getElementById('email').value || 'demo@mail.com';
+  const email = document.getElementById('email').value || 'email@mail.com';
 
   document.getElementById('profileName').textContent = name;
   document.getElementById('profileEmail').textContent = email;
   document.getElementById('avatar').textContent = name[0].toUpperCase();
 
-  loginEl.style.display='none';
-  appEl.style.display='flex';
+  document.getElementById('login').style.display='none';
+  document.getElementById('app').style.display='flex';
 }
 
-// NAVIGATION
-function showPage(id,btn){
-  document.getElementById('dash').style.display='none';
-  document.getElementById('model').style.display='none';
-  document.getElementById('analytics').style.display='none';
-
-  document.getElementById(id).style.display='block';
-  document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-
-  if(id==='analytics') initChart();
+// SWITCH PAGES
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 }
 
-// CALCULATION
+// CALCULATE
 function calculate(){
-  const m=+document.getElementById('marketing').value||0;
-  const u=+document.getElementById('users').value||1;
-  const p=+document.getElementById('payingUsers').value||0;
-  const r=+document.getElementById('revenue').value||0;
-  const l=+document.getElementById('lifetime').value||1;
+  const m=+marketing.value||0;
+  const u=+users.value||1;
+  const p=+payingUsers.value||0;
+  const r=+revenue.value||0;
+  const l=+lifetime.value||1;
 
   const cac=Math.round(m/u);
   const arpu = p ? r/p : 0;
   const ltv = Math.round(arpu*l);
   const profit = r - m;
 
-  animateValue(document.getElementById('cac'),cac,' ₽');
-  animateValue(document.getElementById('ltv'),ltv,' ₽');
-  animateValue(document.getElementById('roi'),profit,' ₽');
-  animateValue(document.getElementById('paying'),p,' чел');
+  cacEl.textContent=cac+" ₽";
+  ltvEl.textContent=ltv+" ₽";
+  roiEl.textContent=profit+" ₽";
+  payingEl.textContent=p;
 
   updateChart(profit);
-
-  showPage('dash', document.querySelector('.nav button'));
+  showPage('dash');
 }
 
-// Анимация чисел
-function animateValue(el,value,suffix=''){
-  let start = 0;
-  let duration = 600;
-  let stepTime = Math.abs(Math.floor(duration / (value||1)));
-  let current = 0;
-  const timer = setInterval(()=>{
-    current += Math.ceil((value-start)/20);
-    if(current>=value) current=value;
-    el.textContent = current + suffix;
-    if(current>=value) clearInterval(timer);
-  },stepTime);
-}
+const cacEl=document.getElementById('cac');
+const ltvEl=document.getElementById('ltv');
+const roiEl=document.getElementById('roi');
+const payingEl=document.getElementById('paying');
 
 // CHART
-function initChart(){
-  if(chart) return;
-  const ctx = document.getElementById('chart');
-  chart = new Chart(ctx,{
-    type:'line',
-    data:{
-      labels:['1','2','3','4','5','6'],
-      datasets:[{
-        label:'Profit',
-        data:[0,0,0,0,0,0],
-        borderColor:'#00ffa6',
-        backgroundColor:'rgba(0,255,166,0.2)',
-        fill:true,
-        tension:0.3
-      }]
-    },
-    options:{
-      responsive:true,
-      plugins:{legend:{labels:{color:'#fff'}}},
-      scales:{y:{ticks:{color:'#fff'}}, x:{ticks:{color:'#fff'}}}
-    }
-  });
-}
-
 function updateChart(profit){
-  if(!chart) return;
-  chart.data.datasets[0].data = chart.data.datasets[0].data.map((v,i)=>Math.round(profit*(i+1)/6));
+  if(!chart){
+    chart = new Chart(document.getElementById('chart'),{
+      type:'line',
+      data:{
+        labels:['1','2','3','4','5','6'],
+        datasets:[{label:'Profit',data:[0,0,0,0,0,0]}]
+      }
+    });
+  }
+  chart.data.datasets[0].data =
+    chart.data.datasets[0].data.map((v,i)=>Math.round(profit*(i+1)/6));
   chart.update();
 }
 </script>
+
 </body>
 </html>
