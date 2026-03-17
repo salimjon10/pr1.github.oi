@@ -4,148 +4,9 @@
 <meta charset="UTF-8">
 <title>Unit Economics</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="style.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<style>
-:root{
-  --bg:#0b0f14;
-  --panel:rgba(255,255,255,0.08);
-  --accent:#00ffa6;
-  --accent2:#00d4ff;
-  --text:#fff;
-}
-
-*{box-sizing:border-box;margin:0;padding:0;font-family:sans-serif}
-
-body{
-  background:linear-gradient(135deg,#0b0f14,#071a1f);
-  color:var(--text);
-}
-#model button{display:block;margin:20px auto;}
-/* LOGIN */
-#login{
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
-
-.card{
-  background:var(--panel);
-  padding:40px;
-  border-radius:20px;
-  text-align:center;
-  animation:fade 0.6s;
-}
-
-@keyframes fade{
-  from{opacity:0; transform:translateY(20px)}
-  to{opacity:1}
-}
-
-input{
-  width:100%;
-  padding:14px;
-  margin:10px 0;
-  border-radius:10px;
-  border:none;
-  background:#111;
-  color:#fff;
-  text-align:center;
-}
-
-button{
-  padding:14px 20px;
-  border:none;
-  border-radius:12px;
-  background:linear-gradient(45deg,var(--accent),var(--accent2));
-  cursor:pointer;
-  font-weight:bold;
-}
-
-/* APP */
-.app{
-  display:none;
-  height:100vh;
-}
-
-/* SIDEBAR */
-.sidebar{
-  width:240px;
-  background:#060a0f;
-  padding:20px;
-  display:flex;
-  flex-direction:column;
-}
-
-/* PROFILE */
-.profile{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin-bottom:30px;
-}
-
-.avatar{
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  background:linear-gradient(45deg,#00ffa6,#00d4ff);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
-  color:#000;
-}
-
-.profile-info{
-  font-size:13px;
-  line-height:1.2;
-}
-
-/* NAV */
-.nav{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
-.main{
-  flex:1;
-  padding:30px;
-  overflow:auto;
-}
-
-/* PAGES */
-.page{display:none}
-.page.active{display:block}
-
-.section{
-  background:var(--panel);
-  padding:30px;
-  border-radius:20px;
-  margin-bottom:20px;
-}
-
-.metrics{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:20px;
-}
-
-.metric{
-  background:linear-gradient(135deg,#00ffa6,#00d4ff);
-  padding:20px;
-  border-radius:15px;
-  text-align:center;
-  color:#000;
-}
-.metric span{
-  font-size:28px;
-  font-weight:bold;
-  display:block;
-}
-</style>
 </head>
 
 <body>
@@ -165,7 +26,6 @@ button{
 
   <div class="sidebar">
 
-    <!-- PROFILE -->
     <div class="profile">
       <div class="avatar" id="avatar">U</div>
       <div class="profile-info">
@@ -183,7 +43,6 @@ button{
 
   <div class="main">
 
-    <!-- DASHBOARD -->
     <div id="dash" class="page active">
       <div class="section">
         <h3>Метрики</h3>
@@ -196,7 +55,6 @@ button{
       </div>
     </div>
 
-    <!-- MODEL -->
     <div id="model" class="page">
       <div class="section">
         <h3>Модель</h3>
@@ -209,7 +67,6 @@ button{
       </div>
     </div>
 
-    <!-- ANALYTICS -->
     <div id="analytics" class="page">
       <div class="section">
         <h3>Прогноз прибыли</h3>
@@ -220,71 +77,6 @@ button{
   </div>
 </div>
 
-<script>
-let chart;
-
-// LOGIN
-function login(){
-  const name = document.getElementById('name').value || 'User';
-  const email = document.getElementById('email').value || 'email@mail.com';
-
-  document.getElementById('profileName').textContent = name;
-  document.getElementById('profileEmail').textContent = email;
-  document.getElementById('avatar').textContent = name[0].toUpperCase();
-
-  document.getElementById('login').style.display='none';
-  document.getElementById('app').style.display='flex';
-}
-
-// SWITCH PAGES
-function showPage(id){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-
-// CALCULATE
-function calculate(){
-  const m=+marketing.value||0;
-  const u=+users.value||1;
-  const p=+payingUsers.value||0;
-  const r=+revenue.value||0;
-  const l=+lifetime.value||1;
-
-  const cac=Math.round(m/u);
-  const arpu = p ? r/p : 0;
-  const ltv = Math.round(arpu*l);
-  const profit = r - m;
-
-  cacEl.textContent=cac+" ₽";
-  ltvEl.textContent=ltv+" ₽";
-  roiEl.textContent=profit+" ₽";
-  payingEl.textContent=p;
-
-  updateChart(profit);
-  showPage('dash');
-}
-
-const cacEl=document.getElementById('cac');
-const ltvEl=document.getElementById('ltv');
-const roiEl=document.getElementById('roi');
-const payingEl=document.getElementById('paying');
-
-// CHART
-function updateChart(profit){
-  if(!chart){
-    chart = new Chart(document.getElementById('chart'),{
-      type:'line',
-      data:{
-        labels:['1','2','3','4','5','6'],
-        datasets:[{label:'Profit',data:[0,0,0,0,0,0]}]
-      }
-    });
-  }
-  chart.data.datasets[0].data =
-    chart.data.datasets[0].data.map((v,i)=>Math.round(profit*(i+1)/6));
-  chart.update();
-}
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>

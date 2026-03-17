@@ -1,0 +1,149 @@
+:root{
+  --bg:#0b0f14;
+  --panel:rgba(255,255,255,0.08);
+  --accent:#00ffa6;
+  --accent2:#00d4ff;
+  --text:#fff;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:sans-serif;
+}
+
+body{
+  background:linear-gradient(135deg,#0b0f14,#071a1f);
+  color:var(--text);
+}
+
+#model button{
+  display:block;
+  margin:20px auto;
+}
+
+/* LOGIN */
+#login{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.card{
+  background:var(--panel);
+  padding:40px;
+  border-radius:20px;
+  text-align:center;
+  animation:fade 0.6s;
+}
+
+@keyframes fade{
+  from{opacity:0; transform:translateY(20px)}
+  to{opacity:1}
+}
+
+input{
+  width:100%;
+  padding:14px;
+  margin:10px 0;
+  border-radius:10px;
+  border:none;
+  background:#111;
+  color:#fff;
+  text-align:center;
+}
+
+button{
+  padding:14px 20px;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(45deg,var(--accent),var(--accent2));
+  cursor:pointer;
+  font-weight:bold;
+}
+
+/* APP */
+.app{
+  display:none;
+  height:100vh;
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:240px;
+  background:#060a0f;
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+}
+
+/* PROFILE */
+.profile{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:30px;
+}
+
+.avatar{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:linear-gradient(45deg,#00ffa6,#00d4ff);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  color:#000;
+}
+
+.profile-info{
+  font-size:13px;
+  line-height:1.2;
+}
+
+/* NAV */
+.nav{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.main{
+  flex:1;
+  padding:30px;
+  overflow:auto;
+}
+
+/* PAGES */
+.page{display:none}
+.page.active{display:block}
+
+.section{
+  background:var(--panel);
+  padding:30px;
+  border-radius:20px;
+  margin-bottom:20px;
+}
+
+.metrics{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
+}
+
+.metric{
+  background:linear-gradient(135deg,#00ffa6,#00d4ff);
+  padding:20px;
+  border-radius:15px;
+  text-align:center;
+  color:#000;
+}
+
+.metric span{
+  font-size:28px;
+  font-weight:bold;
+  display:block;
+}
