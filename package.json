@@ -1,0 +1,14 @@
+{
+  "name": "unit-economics-app",
+  "version": "1.0.0",
+  "description": "Web application for unit economics calculation",
+  "main": "script.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Salimjon Rakhimov",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^30.4.2"
+  }
+}
